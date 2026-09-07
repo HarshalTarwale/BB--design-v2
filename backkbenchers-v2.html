@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BackkBenchers — Marketing, but make it fun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Chango&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --yellow:#FFC72C;
+  --yellow-deep:#F0AE00;
+  --red:#E8342A;
+  --red-deep:#B8241C;
+  --orange:#F47521;
+  --cream:#FFF8EC;
+  --cream-2:#FCEFD6;
+  --ink:#211710;
+  --ink-soft:#3A2A1E;
+  --white:#FFFFFF;
+  --line: rgba(33,23,16,.14);
+  --gut:20px;
+  --max:1320px;
+  --radius:26px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  background:var(--cream);color:var(--ink);
+  font-family:"Poppins",system-ui,sans-serif;
+  font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+@media(min-width:640px){:root{--gut:32px}}
+@media(min-width:1000px){:root{--gut:48px}}
+@media(min-width:1300px){:root{--gut:64px}}
+
+/* ---------- type ---------- */
+.disp{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1.02}
+.d1{font-size:2.3rem}
+.d2{font-size:1.9rem}
+.d3{font-size:1.35rem;line-height:1.12}
+@media(min-width:640px){.d1{font-size:3.4rem}.d2{font-size:2.5rem}.d3{font-size:1.55rem}}
+@media(min-width:1000px){.d1{font-size:4.6rem}.d2{font-size:3.1rem}.d3{font-size:1.75rem}}
+@media(min-width:1300px){.d1{font-size:5.6rem}.d2{font-size:3.6rem}}
+.mark{font-family:"Caveat",cursive;font-weight:700}
+.lede{font-size:1.05rem;line-height:1.55;max-width:36ch;font-weight:500}
+@media(min-width:1000px){.lede{font-size:1.2rem}}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gut);padding-right:var(--gut)}
+.sec{padding:56px 0;position:relative}
+@media(min-width:1000px){.sec{padding:88px 0}}
+@media(min-width:1300px){.sec{padding:116px 0}}
+.on-ink{background:var(--ink);color:var(--cream)}
+.on-red{background:var(--red);color:#fff}
+.on-yellow{background:var(--yellow);color:var(--ink)}
+
+/* underline squiggle used as brand signature accent */
+.wob{position:relative;display:inline-block}
+.wob svg{position:absolute;left:0;bottom:-.08em;width:100%;height:.3em;overflow:visible}
+
+/* section head */
+.head{margin-bottom:32px}
+.head .eye{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--ink);
+  padding:6px 16px;border-radius:100px;font-weight:700;font-size:.82rem;border:2px solid var(--ink);
+  box-shadow:3px 3px 0 var(--ink);transform:rotate(-2deg);margin-bottom:16px}
+.on-ink .head .eye,.on-red .head .eye{box-shadow:3px 3px 0 var(--cream);border-color:var(--cream)}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:60;background:var(--cream);border-bottom:3px solid var(--ink)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:74px;gap:20px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-img{height:40px;width:auto;display:block}
+@media(min-width:640px){.logo-img{height:46px}}
+.nav-links{display:none;gap:6px}
+@media(min-width:900px){.nav-links{display:flex}}
+.nav-links a{padding:9px 18px;font-size:.95rem;font-weight:700;border-radius:100px;transition:transform .2s,background .2s}
+.nav-links a:hover{background:var(--yellow);transform:translateY(-2px) rotate(-1deg)}
+.nav-links a.on{background:var(--ink);color:var(--cream)}
+.nav-cta{display:flex;align-items:center;gap:12px}
+/* nav CTA matches the logo's cap height so the bar reads as one line */
+.nav-cta .btn{height:40px;padding:0 20px;font-size:.92rem}
+@media(min-width:640px){.nav-cta .btn{height:46px;padding:0 26px;font-size:.98rem}}
+.tel{display:none;font-size:.85rem;font-weight:700}
+@media(min-width:1080px){.tel{display:block}}
+.burger{display:flex;flex-direction:column;gap:5px;padding:10px}
+@media(min-width:900px){.burger{display:none}}
+.burger span{width:22px;height:3px;background:var(--ink);border-radius:2px}
+.mob{position:fixed;inset:74px 0 0;background:var(--red);color:#fff;z-index:59;
+  display:flex;flex-direction:column;justify-content:center;gap:8px;padding:0 var(--gut);
+  transform:translateY(-101%);transition:transform .5s cubic-bezier(.34,1.56,.64,1);visibility:hidden}
+.mob.open{transform:none;visibility:visible}
+.mob a{font-family:"Baloo 2";font-weight:800;font-size:13vw;line-height:1.1}
+.mob .m-foot{margin-top:26px;font-size:.95rem;opacity:.9;line-height:1.9;font-weight:600}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;position:relative;padding:15px 28px;border-radius:100px;
+  font-weight:700;font-size:.98rem;background:var(--red);color:#fff;border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);transition:transform .18s,box-shadow .18s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink)}
+.btn--yellow{background:var(--yellow);color:var(--ink)}
+.btn--ghost{background:var(--white);color:var(--ink)}
+.on-ink .btn--ghost,.on-red .btn--ghost{background:var(--cream)}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.on-ink :focus-visible,.on-red :focus-visible{outline-color:var(--yellow)}
+
+/* ---------- sticker badge ---------- */
+.sticker{display:inline-flex;align-items:center;gap:6px;background:var(--yellow);color:var(--ink);
+  padding:6px 14px;border-radius:100px;font-weight:700;font-size:.78rem;border:2px solid var(--ink);
+  transform:rotate(-3deg);box-shadow:2px 2px 0 var(--ink)}
+.sticker--red{background:var(--red);color:#fff}
+
+/* ---------- reveal ---------- */
+.rv{overflow:hidden}
+.rv > *{display:block;transform:translateY(105%) rotate(1deg);opacity:0}
+.rv.in > *{transform:none;opacity:1;transition:transform .8s cubic-bezier(.2,.9,.25,1.15),opacity .5s ease}
+.fx{opacity:0;transform:translateY(16px) scale(.98)}
+.fx.in{opacity:1;transform:none;transition:opacity .6s ease,transform .7s cubic-bezier(.34,1.4,.64,1)}
+@media(prefers-reduced-motion:reduce){.rv>*{transform:none;opacity:1}.fx{opacity:1;transform:none}}
+
+/* ---------- floaty motion ---------- */
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes floatRot{0%,100%{transform:translateY(0) rotate(var(--fr,0deg))}50%{transform:translateY(-11px) rotate(var(--fr,0deg))}}
+.floaty{animation:floatY 5s ease-in-out infinite}
+.floaty--slow{animation:floatY 7.5s ease-in-out infinite}
+.floaty--rot{animation:floatRot 6s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.floaty,.floaty--slow,.floaty--rot{animation:none}}
+
+/* ---------- hero ---------- */
+/* padding-top only — .wrap's side gutter must survive so the hero lines up with the nav */
+.hero{padding-top:34px;position:relative}
+@media(min-width:1000px){.hero{padding-top:44px}}
+.hero-grid{display:grid;gap:34px;align-items:center}
+/* headline column hugs its own text and the card sits right beside it, so spare
+   width falls off the right as margin instead of pooling in the middle */
+@media(min-width:1000px){.hero-grid{grid-template-columns:fit-content(48rem) minmax(320px,1fr);gap:56px;justify-content:start}}
+
+/* inner-page hero headlines stay on the body display face */
+.hero .d1{max-width:15ch}
+@media(min-width:1000px){.hero .d1{max-width:none}}
+.hero .d1{font-size:2.15rem}
+@media(min-width:640px){.hero .d1{font-size:2.95rem}}
+@media(min-width:1000px){.hero .d1{font-size:3.45rem}}
+@media(min-width:1300px){.hero .d1{font-size:4.1rem}}
+
+/* HOME hero headline — Chango: fat, rounded and ~50% wider than Baloo at the same
+   height, so it fills the line instead of leaving a gap beside it. Kept to the
+   landing page so it reads as the site's single loudest moment. */
+.hero--home .d1{font-family:"Chango",system-ui,sans-serif;font-weight:400;line-height:1.06;letter-spacing:-.012em;max-width:14ch}
+@media(min-width:1000px){.hero--home .d1{max-width:none}}
+.hero--home .d1{font-size:1.95rem}
+@media(min-width:640px){.hero--home .d1{font-size:2.6rem}}
+@media(min-width:1000px){.hero--home .d1{font-size:3.05rem}}
+/* caps at 1300 — the container tops out at 1320, so past that there is no extra
+   width to grow into and a larger size wraps "toh business ka" onto two lines */
+@media(min-width:1300px){.hero--home .d1{font-size:4.05rem}}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+
+/* home hero fills one screen: the main block centres in the space above the stat
+   strip, the strip itself parks right down on the fold */
+@media(min-width:1000px){
+  .hero--home{min-height:calc(100vh - 74px);min-height:calc(100svh - 74px);
+    display:flex;flex-direction:column;padding-top:26px;padding-bottom:26px}
+  .hero--home .hero-grid{flex:1 1 auto;align-content:center}
+  .hero--home .hero-meta{flex:0 0 auto;margin-top:24px}
+}
+
+.hero-side{position:relative}
+.hero-stack{position:relative;max-width:430px;margin:56px auto 8px}
+@media(min-width:1000px){.hero-stack{max-width:416px;margin:0 0 0 auto}}
+.hero-card{background:var(--white);border:3px solid var(--ink);border-radius:var(--radius);
+  box-shadow:8px 8px 0 var(--ink);padding:24px 22px;position:relative;z-index:2;transform:rotate(-1.5deg)}
+.hero-card .tag{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  background:var(--yellow);border:2px solid var(--ink);border-radius:100px;padding:4px 12px;margin-bottom:12px}
+.hero-mascot{width:112px;height:auto;position:absolute;top:-46px;right:6px;z-index:3;pointer-events:none;
+  filter:drop-shadow(4px 5px 0 rgba(33,23,16,.16))}
+@media(min-width:1000px){.hero-mascot{width:140px;top:-52px;right:-6px}}
+@media(max-width:520px){.hero-mascot{width:92px;top:-40px;right:4px}}
+/* megaphone prop — tucked into the card's bottom-left corner, flat sticker
+   style so it sits with the cards rather than fighting them */
+.hero-mega{position:absolute;left:-90px;bottom:-108px;width:172px;height:auto;z-index:4;rotate:-10deg;
+  pointer-events:none;filter:drop-shadow(5px 6px 0 rgba(33,23,16,.13))}
+@media(max-width:1440px){.hero-mega{width:148px;left:-78px;bottom:-93px}}
+@media(max-width:1300px){.hero-mega{width:124px;left:-65px;bottom:-78px}}
+@media(max-width:1000px){.hero-mega{display:none}}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:16px;border-top:2px dashed var(--ink);padding-top:12px}
+.hero-stats div{padding:4px 0}
+.hero-stats b{font-family:"Baloo 2";font-weight:800;font-size:1.7rem;display:block;color:var(--red)}
+.hero-stats i{font-style:normal;font-size:.72rem;opacity:.65;font-weight:600}
+.hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 24px;margin-top:38px;padding:20px 0 0;border-top:3px solid var(--ink)}
+@media(min-width:820px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+.hero-meta b{font-family:"Baloo 2";font-weight:800;font-size:1.9rem;display:block;color:var(--red)}
+@media(min-width:1000px){.hero-meta b{font-size:2.2rem}}
+.hero-meta i{font-style:normal;font-size:.78rem;opacity:.62;font-weight:600;display:block;margin-top:4px;line-height:1.35}
+
+/* checkerboard divider */
+.check{height:22px;background-image:
+  linear-gradient(45deg, var(--ink) 25%, transparent 25%),
+  linear-gradient(-45deg, var(--ink) 25%, transparent 25%),
+  linear-gradient(45deg, transparent 75%, var(--ink) 75%),
+  linear-gradient(-45deg, transparent 75%, var(--ink) 75%);
+  background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0px;background-color:var(--yellow)}
+.check--sm{height:14px;background-size:14px 14px;background-position:0 0,0 7px,7px -7px,-7px 0px}
+
+/* ---------- marquee ---------- */
+.mq{overflow:hidden;white-space:nowrap;padding:16px var(--gut);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.mq-in{display:inline-flex;gap:0;animation:slide 30s linear infinite}
+.mq:hover .mq-in{animation-play-state:paused}
+.mq-in span{padding:0 22px;font-family:"Baloo 2";font-weight:700;font-size:1.1rem;opacity:.85}
+.mq-in .dot{opacity:.4;font-weight:400}
+@keyframes slide{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.mq-in{animation:none}}
+
+/* ---------- pillars ---------- */
+.pillars{display:grid;gap:22px}
+@media(min-width:900px){.pillars{grid-template-columns:repeat(3,1fr)}}
+.pillar{background:var(--white);border:3px solid var(--ink);border-radius:var(--radius);
+  padding:28px;display:flex;flex-direction:column;gap:16px;min-height:380px;position:relative;
+  box-shadow:6px 6px 0 var(--ink);transition:transform .25s cubic-bezier(.34,1.4,.64,1),box-shadow .25s}
+.pillar:hover{transform:translate(-3px,-5px) rotate(-1deg);box-shadow:9px 10px 0 var(--ink)}
+.pillar:nth-child(1){background:var(--yellow)}
+.pillar:nth-child(2){background:var(--cream-2)}
+.pillar:nth-child(3){background:#FFE3D1}
+.pillar .p-badge{position:absolute;top:-14px;left:24px}
+.pillar p{font-size:.98rem;opacity:.85;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:16px}
+.chip{font-size:.76rem;font-weight:700;padding:6px 13px;border-radius:100px;background:var(--white);
+  border:2px solid var(--ink)}
+.p-link{font-weight:700;font-size:.92rem;display:inline-flex;align-items:center;gap:6px}
+.p-link svg{transition:transform .2s}
+.pillar:hover .p-link svg{transform:translateX(4px)}
+
+/* ---------- work posters ---------- */
+.work-grid{display:grid;gap:20px}
+@media(min-width:700px){.work-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.work-grid{grid-template-columns:repeat(3,1fr)}}
+.wide{grid-column:span 1}
+@media(min-width:700px){.wide{grid-column:span 2}}
+.poster{position:relative;background:var(--cream);color:var(--ink);border:3px solid var(--ink);border-radius:var(--radius);
+  padding:22px 22px 22px;min-height:244px;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:6px 6px 0 var(--ink);transition:transform .25s cubic-bezier(.34,1.4,.64,1),box-shadow .25s}
+@media(min-width:700px){.poster{min-height:284px}}
+.poster:hover{transform:translate(-3px,-5px) rotate(1deg);box-shadow:9px 10px 0 var(--ink)}
+.poster .p-idx{position:absolute;top:14px;right:20px;font-family:"Baloo 2";font-weight:800;font-size:2.6rem;
+  line-height:.8;opacity:.16;letter-spacing:-.02em}
+.poster .p-cat{align-self:flex-start;font-size:.74rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;
+  background:rgba(33,23,16,.09);border-radius:100px;padding:5px 12px;max-width:calc(100% - 48px)}
+.poster .p-name{font-family:"Baloo 2";font-weight:800;font-size:1.5rem;line-height:1.06;margin-top:auto}
+@media(min-width:700px){.poster .p-name{font-size:1.8rem}}
+.wide .p-name{font-size:1.85rem}
+@media(min-width:700px){.wide .p-name{font-size:2.5rem;max-width:17ch}}
+.poster .p-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px;padding-top:13px;
+  border-top:2px dashed rgba(33,23,16,.32)}
+.poster .p-res{font-size:.88rem;font-weight:700;line-height:1.25}
+.poster .p-arrow{flex:0 0 auto;width:34px;height:34px;display:grid;place-items:center;border:2px solid var(--ink);
+  border-radius:100px;background:var(--white);transition:transform .2s}
+.poster:hover .p-arrow{transform:translateX(4px) rotate(-8deg)}
+.poster.c-yellow{background:var(--yellow)}
+.poster.c-peach{background:#FFDFC6}
+.poster.c-red{background:var(--red);color:#fff}
+.poster.c-red .p-cat{background:rgba(255,255,255,.2)}
+.poster.c-red .p-foot{border-color:rgba(255,255,255,.45)}
+.poster.c-red .p-arrow{background:var(--ink);color:#fff;border-color:#fff}
+.poster.c-red .p-idx{opacity:.24}
+.poster.p-cta{background:var(--ink);color:var(--cream);justify-content:center;gap:12px}
+.poster.p-cta .p-name{margin:0}
+.poster.p-cta .p-foot{border-color:rgba(255,248,236,.3)}
+.poster.p-cta .p-arrow{background:var(--yellow);border-color:var(--cream);color:var(--ink)}
+
+/* ---------- generic rows ---------- */
+.rows{border-top:3px solid var(--ink)}
+.row{display:grid;grid-template-columns:1fr;gap:10px;padding:24px 0;border-bottom:3px solid var(--ink);
+  transition:padding-left .3s}
+@media(min-width:860px){.row{grid-template-columns:220px 1fr;gap:32px}}
+.row:hover{padding-left:14px}
+.row h3{display:flex;align-items:center;gap:10px}
+.row p{opacity:.8;font-size:.98rem;font-weight:500}
+
+/* ---------- service cells ---------- */
+.cells{display:grid;gap:20px}
+@media(min-width:640px){.cells{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.cells{grid-template-columns:repeat(3,1fr)}}
+.cell{background:var(--white);border:3px solid var(--ink);border-radius:22px;padding:24px;
+  display:flex;flex-direction:column;gap:12px;min-height:210px;box-shadow:5px 5px 0 var(--ink);
+  transition:transform .22s cubic-bezier(.34,1.4,.64,1),box-shadow .22s}
+.cell:hover{transform:translate(-2px,-4px);box-shadow:7px 9px 0 var(--ink)}
+.cell.flag{background:var(--red);color:#fff}
+.cell p{font-size:.95rem;opacity:.85;flex:1;font-weight:500}
+.cell .badge{align-self:flex-start}
+
+/* ---------- audit / form ---------- */
+.audit{display:grid;gap:32px}
+@media(min-width:940px){.audit{grid-template-columns:1fr .92fr;gap:56px}}
+.audit-left{position:relative;padding-bottom:6px}
+.audit-list{list-style:none;margin:24px 0 0;display:grid;gap:12px;max-width:34ch}
+.audit-list li{display:flex;gap:12px;align-items:flex-start;font-weight:600;font-size:.98rem;line-height:1.4}
+.audit-list .tick{flex:0 0 auto;width:26px;height:26px;border:2px solid var(--ink);border-radius:8px;background:var(--white);
+  display:grid;place-items:center;font-weight:800;font-size:.9rem;transform:rotate(-4deg)}
+.audit-mascot{position:absolute;right:-4px;bottom:-42px;width:118px;height:auto;z-index:1;pointer-events:none}
+@media(max-width:940px){.audit-mascot{display:none}}
+.audit-form{position:relative}
+.audit-stamp{position:absolute;top:-26px;right:-6px;z-index:3;background:var(--red);color:#fff;border:3px solid var(--ink);
+  border-radius:14px;padding:8px 13px;font-family:"Baloo 2";font-weight:800;font-size:.9rem;line-height:1;text-align:center;
+  transform:rotate(7deg);box-shadow:4px 4px 0 var(--ink)}
+.audit-stamp small{display:block;font-size:.6rem;font-weight:700;opacity:.9;margin-top:3px;letter-spacing:.02em}
+.audit-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.audit-chips .sticker{transform:none}
+.field{position:relative;margin-bottom:18px}
+.field input,.field .ta{width:100%;background:var(--white);border:3px solid var(--ink);border-radius:16px;
+  padding:16px 16px 16px;font:inherit;font-size:1rem;color:var(--ink)}
+.field .ta{resize:vertical;min-height:90px}
+.field input:focus,.field .ta:focus{outline:none;box-shadow:4px 4px 0 var(--red)}
+.field label{display:block;font-size:.85rem;font-weight:700;margin-bottom:6px}
+.form-note{font-size:.82rem;opacity:.65;margin-top:10px;font-weight:500}
+.sent{display:none;padding:32px;background:var(--yellow);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:6px 6px 0 var(--ink)}
+.sent.show{display:block}
+
+/* ---------- stats band ---------- */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(min-width:860px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--white);color:var(--ink);border:3px solid var(--ink);border-radius:20px;padding:24px 20px;
+  box-shadow:5px 5px 0 var(--red)}
+.stat b{font-family:"Baloo 2";font-weight:800;font-size:2.1rem;display:block}
+@media(min-width:1000px){.stat b{font-size:2.6rem}}
+.stat i{font-style:normal;font-size:.8rem;opacity:.65;font-weight:600;display:block;margin-top:6px}
+
+/* ---------- speech bubble quotes ---------- */
+.quotes{display:grid;gap:22px}
+@media(min-width:900px){.quotes{grid-template-columns:repeat(3,1fr)}}
+.quote{background:var(--white);border:3px solid var(--ink);border-radius:22px;padding:26px;position:relative;
+  box-shadow:5px 5px 0 var(--ink)}
+.quote::after{content:"";position:absolute;left:32px;bottom:-16px;width:0;height:0;
+  border:16px solid transparent;border-top-color:var(--ink);border-bottom:0}
+.quote::before{content:"";position:absolute;left:35px;bottom:-11px;width:0;height:0;
+  border:13px solid transparent;border-top-color:var(--white);border-bottom:0;z-index:1}
+.quote p{font-family:"Baloo 2";font-weight:600;font-size:1.15rem;line-height:1.3}
+.quote footer{margin-top:16px;font-size:.85rem;opacity:.65;font-weight:600}
+
+/* ---------- filter ---------- */
+.filter{display:flex;flex-wrap:wrap;gap:10px;padding:18px 0;position:sticky;top:74px;z-index:40;background:var(--cream)}
+.filter button{padding:10px 18px;border-radius:100px;font-size:.9rem;font-weight:700;border:2px solid var(--ink);
+  background:var(--white);transition:.2s}
+.filter button:hover{transform:translateY(-2px)}
+.filter button.on{background:var(--ink);color:var(--cream)}
+
+/* ---------- faq ---------- */
+.faq{border-top:3px solid var(--ink)}
+.q{border-bottom:3px solid var(--ink)}
+.q button{display:flex;width:100%;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;text-align:left;
+  font-family:"Baloo 2";font-weight:700;font-size:1.15rem}
+.q button:hover,.q.open button{color:var(--red)}
+.q .plus{flex:0 0 auto;width:26px;height:26px;position:relative;border:2px solid var(--ink);border-radius:100px}
+.q .plus::before,.q .plus::after{content:"";position:absolute;background:currentColor;left:50%;top:50%;transition:transform .3s}
+.q .plus::before{width:12px;height:2px;transform:translate(-50%,-50%)}
+.q .plus::after{width:2px;height:12px;transform:translate(-50%,-50%)}
+.q.open .plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.q .a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.34,1.2,.64,1)}
+.q .a p{padding:0 0 24px;max-width:62ch;opacity:.85;font-weight:500}
+
+/* ---------- team ---------- */
+.team{display:grid;gap:20px}
+@media(min-width:640px){.team{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.team{grid-template-columns:repeat(3,1fr)}}
+.member{background:var(--white);border:3px solid var(--ink);border-radius:22px;overflow:hidden;
+  box-shadow:5px 5px 0 var(--ink);transition:transform .2s}
+.member:hover{transform:translate(-2px,-4px)}
+.member .face{aspect-ratio:4/5;background:var(--yellow);position:relative;display:flex;align-items:flex-end;padding:18px}
+.member:nth-child(2n) .face{background:#FFE3D1}
+.member:nth-child(3n) .face{background:var(--cream-2)}
+.member .face .init{font-family:"Baloo 2";font-weight:800;font-size:4.4rem;line-height:.8;opacity:.28}
+.member .info{padding:16px 18px 22px}
+.member .info span{font-size:.8rem;opacity:.62;font-weight:600}
+.member.open-role{display:flex;align-items:center;justify-content:center;text-align:center;padding:36px;min-height:250px;
+  background:repeating-linear-gradient(45deg,var(--white),var(--white) 10px,var(--cream-2) 10px,var(--cream-2) 20px)}
+
+/* ---------- cta ---------- */
+.cta.on-ink,.cta.on-red,.cta.on-yellow{max-width:none;padding-left:0;padding-right:0}
+.cta{padding:64px 0}
+@media(min-width:1000px){.cta{padding:96px 0}}
+.cta-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;align-items:center}
+.cta-dir{font-weight:700;font-size:1rem;text-decoration:underline;text-underline-offset:5px}
+
+/* ---------- footer ---------- */
+.foot{background:var(--ink);color:var(--cream);padding:56px 0 24px}
+.foot-grid{display:grid;gap:32px}
+@media(min-width:860px){.foot-grid{grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:36px}}
+.foot h4{font-size:.78rem;font-weight:700;opacity:.55;margin-bottom:14px;color:var(--yellow)}
+.foot ul{list-style:none;line-height:2.1;font-size:.95rem}
+.foot ul a:hover{color:var(--yellow)}
+.foot-mark{font-family:"Baloo 2";font-weight:800;font-size:1.7rem;display:flex;align-items:center;gap:10px}
+.foot-bot{margin-top:40px;padding-top:20px;border-top:2px solid rgba(255,248,236,.18);display:flex;flex-wrap:wrap;
+  justify-content:space-between;gap:12px;font-size:.8rem;opacity:.6}
+.sub{display:flex;gap:8px;margin-top:10px}
+.sub input{flex:1;background:rgba(255,248,236,.08);border:2px solid rgba(255,248,236,.3);border-radius:100px;
+  color:inherit;font:inherit;font-size:.92rem;padding:10px 16px}
+.sub input:focus{outline:none;border-color:var(--yellow)}
+.sub button{font-weight:800;padding:10px 18px;background:var(--yellow);color:var(--ink);border-radius:100px}
+
+/* pages */
+[data-page]{display:none}
+[data-page].live{display:block}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#home" class="logo" aria-label="BackkBenchers — home">
+      <img class="logo-img" src="logo.png" alt="BackkBenchers" width="680" height="268">
+    </a>
+    <nav class="nav-links">
+      <a href="#home">Home</a><a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="tel" href="tel:+917770019261">+91 77700 19261</a>
+      <a class="btn btn--yellow" href="#home-audit"><span>Free audit</span></a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mob" id="mob">
+  <a href="#home">Home</a><a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
+  <div class="m-foot">+91 77700 19261<br>info@backkbenchers.in<br>Nagpur, Maharashtra</div>
+</div>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<div data-page="home" class="live">
+
+  <section class="wrap hero hero--home">
+    <div class="hero-grid">
+      <div>
+        <span class="sticker fx">AI-powered marketing firm 🚀</span>
+        <h1 class="disp d1" style="margin-top:16px">
+          <span class="rv"><span>You lean back.</span></span>
+          <span class="rv"><span>We run the</span></span>
+          <span class="rv"><span><span class="wob" style="color:var(--red)">whole show.</span></span></span>
+        </h1>
+        <p class="lede fx" style="margin-top:30px">We handle your socials, your ads, your hoardings — your everything. You just count the results.</p>
+        <div class="hero-actions fx">
+          <a class="btn" href="#work"><span>See the work</span></a>
+          <a class="btn btn--ghost" href="#home-audit"><span>Get a free audit</span></a>
+        </div>
+      </div>
+      <div class="hero-side fx">
+        <div class="hero-stack">
+          <img class="hero-mascot floaty--slow" src="mascot.png" alt="" aria-hidden="true">
+          <svg class="hero-mega floaty" viewBox="0 0 300 220" aria-hidden="true">
+            <g transform="rotate(-15 130 108)">
+              <path d="M36 118 L27 158c-1 14 5 21 16 22 12 1 19-6 20-18l2-33Z" fill="#E8342A" stroke="#211710" stroke-width="8" stroke-linejoin="round"/>
+              <rect x="8" y="66" width="42" height="58" rx="13" fill="#FFF8EC" stroke="#211710" stroke-width="8"/>
+              <path d="M48 70 L134 22 L134 168 L48 120 Z" fill="#E8342A" stroke="#211710" stroke-width="8" stroke-linejoin="round"/>
+              <ellipse cx="134" cy="95" rx="21" ry="73" fill="#FFF8EC" stroke="#211710" stroke-width="8"/>
+              <ellipse cx="138" cy="95" rx="10" ry="52" fill="#E8342A"/>
+            </g>
+            <g fill="#FFC72C" stroke="#211710" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M212 6 L186 46 L203 48 L191 86 L229 39 L210 37 L226 8 Z"/>
+              <path d="M266 78 L245 108 L258 110 L249 138 L278 103 L264 101 L277 80 Z"/>
+              <path d="M208 140 L184 175 L200 177 L189 208 L222 170 L205 168 L220 142 Z"/>
+            </g>
+          </svg>
+          <div class="hero-card floaty--rot" style="--fr:-1.5deg">
+            <span class="tag">Day 1 question</span>
+            <p class="disp d3">"Chahe client confuse ho ya na ho — aapko clarity milni chahiye."</p>
+            <div class="hero-stats">
+              <div><b>150+</b><i>Brands handled</i></div>
+              <div><b>4.9★</b><i>Client rating</i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-meta fx">
+      <div><b>17</b><i>Services under one roof</i></div>
+      <div><b>3</b><i>Teams — digital, offline, creative</i></div>
+      <div><b>2023</b><i>Running wild since</i></div>
+      <div><b>0</b><i>Excuses, only results</i></div>
+    </div>
+  </section>
+
+  <div class="mq" aria-label="Clients">
+    <div class="mq-in">
+      <span>ShirtUp</span><span class="dot">●</span><span>Shree Mohini</span><span class="dot">●</span><span>Ramesh Chandak English School</span><span class="dot">●</span><span>Sneha Taori</span><span class="dot">●</span><span>Mission Ums Fikr</span><span class="dot">●</span><span>Imprimere</span><span class="dot">●</span>
+      <span>ShirtUp</span><span class="dot">●</span><span>Shree Mohini</span><span class="dot">●</span><span>Ramesh Chandak English School</span><span class="dot">●</span><span>Sneha Taori</span><span class="dot">●</span><span>Mission Ums Fikr</span><span class="dot">●</span><span>Imprimere</span><span class="dot">●</span>
+    </div>
+  </div>
+  <div class="check"></div>
+
+  <!-- pillars -->
+  <section class="sec wrap">
+    <div class="head fx">
+      <span class="eye">What we do 👇</span>
+      <h2 class="disp d2">Just let us handle it.</h2>
+    </div>
+    <div class="pillars fx">
+      <a class="pillar" href="#services">
+        <span class="sticker p-badge">Team 01</span>
+        <h3 class="disp d3">Digital<br>Marketing</h3>
+        <p>Social run daily, ads that actually get watched, SEO that isn't guesswork. Every rupee spent has a plan behind it.</p>
+        <div class="chips"><span class="chip">Social media</span><span class="chip">SEO</span><span class="chip">Performance</span><span class="chip">Websites</span></div>
+        <span class="p-link">Explore digital <svg width="16" height="16"><use href="#arrow"/></svg></span>
+      </a>
+      <a class="pillar" href="#services">
+        <span class="sticker sticker--red p-badge">Team 02</span>
+        <h3 class="disp d3">Traditional<br>Marketing</h3>
+        <p>Metro pillars, hoardings across the city, newspaper columns. The stuff people see on the way to work, every single day.</p>
+        <div class="chips"><span class="chip">Hoardings</span><span class="chip">Metro pillars</span><span class="chip">Newspaper</span></div>
+        <span class="p-link">Explore outdoor <svg width="16" height="16"><use href="#arrow"/></svg></span>
+      </a>
+      <a class="pillar" href="#services">
+        <span class="sticker p-badge">Team 03</span>
+        <h3 class="disp d3">Design &amp;<br>Production</h3>
+        <p>Photo, video, edits, animation, print — all made in-house. Nothing gets sent to a freelancer we've never met.</p>
+        <div class="chips"><span class="chip">Photo/video</span><span class="chip">Editing</span><span class="chip">Branding kit</span></div>
+        <span class="p-link">Explore production <svg width="16" height="16"><use href="#arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- work -->
+  <section class="sec on-ink">
+    <div class="wrap">
+      <div class="head fx">
+        <span class="eye">Selected work 🔥</span>
+        <h2 class="disp d2">Results, not just vibes.</h2>
+      </div>
+      <div class="work-grid fx">
+        <a class="poster wide c-yellow" href="#work">
+          <span class="p-idx">01</span>
+          <span class="p-cat">ShirtUp · Apparel D2C</span>
+          <div class="p-name disp">Sold the shirt, not the discount.</div>
+          <div class="p-foot"><span class="p-res">3.1× ROAS · 90 days of paid social</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div>
+        </a>
+        <a class="poster c-red" href="#work">
+          <span class="p-idx">02</span>
+          <span class="p-cat">Shree Mohini · Jewellery</span>
+          <div class="p-name disp">42 pillars, one week.</div>
+          <div class="p-foot"><span class="p-res">City-wide metro transit launch</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div>
+        </a>
+        <a class="poster c-peach" href="#work">
+          <span class="p-idx">03</span>
+          <span class="p-cat">R. Chandak School · Education</span>
+          <div class="p-name disp">Admissions, doubled.</div>
+          <div class="p-foot"><span class="p-res">2.4× enquiries, season on season</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div>
+        </a>
+        <a class="poster c-yellow" href="#work">
+          <span class="p-idx">04</span>
+          <span class="p-cat">Sneha Taori · Personal brand</span>
+          <div class="p-name disp">Zero to 68K.</div>
+          <div class="p-foot"><span class="p-res">8 months of weekly video</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div>
+        </a>
+        <a class="poster c-red" href="#work">
+          <span class="p-idx">05</span>
+          <span class="p-cat">Mission Ums Fikr · Non-profit</span>
+          <div class="p-name disp">A cause that looks funded.</div>
+          <div class="p-foot"><span class="p-res">Identity rebuild + campaign toolkit</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+  <div class="check check--sm"></div>
+
+  <!-- audit -->
+  <section class="sec on-yellow" id="home-audit">
+    <div class="wrap audit">
+      <div class="fx audit-left">
+        <div class="head" style="margin-bottom:0"><span class="eye">No charge, no catch</span></div>
+        <h2 class="disp d2">Not sure what's <span class="wob" style="color:var(--red)">actually</span> broken?</h2>
+        <p class="lede" style="margin-top:18px">Send us your website or Insta handle. We'll go through it properly and tell you what's costing you customers — plain language, no agency jargon.</p>
+        <ul class="audit-list">
+          <li><span class="tick">✓</span> A line-by-line teardown of your site &amp; socials</li>
+          <li><span class="tick">✓</span> The 3 fixes that'll move the needle first</li>
+          <li><span class="tick">✓</span> An honest take on what's worth spending on</li>
+        </ul>
+        <img class="audit-mascot floaty--slow" src="mascot.png" alt="" aria-hidden="true">
+      </div>
+      <div class="audit-form">
+        <span class="audit-stamp floaty">48 hrs<small>reply, promise</small></span>
+        <form class="fx" id="auditForm">
+          <div class="field"><label for="a1">Your name</label><input id="a1" required></div>
+          <div class="field"><label for="a2">Email</label><input id="a2" type="email" required></div>
+          <div class="field"><label for="a3">Mobile number</label><input id="a3" type="tel" required></div>
+          <div class="field"><label for="a4">Website or Insta handle</label><input id="a4" required></div>
+          <button class="btn" type="submit"><span>Send me the audit</span></button>
+          <p class="form-note">We reply from info@backkbenchers.in within 48 hours.</p>
+        </form>
+        <div class="sent" id="auditSent"><h3 class="disp d3">Got it! 🎉</h3><p style="margin-top:10px;opacity:.75;font-weight:500">We'll go through it and email you within two working days.</p></div>
+      </div>
+    </div>
+    <div class="wrap audit-chips fx">
+      <span class="sticker">No lock-in</span>
+      <span class="sticker sticker--red">Plain-language report</span>
+      <span class="sticker">Reply in 48 hrs</span>
+      <span class="sticker">Actually free</span>
+    </div>
+  </section>
+  <div class="check"></div>
+
+  <!-- quotes -->
+  <section class="sec wrap">
+    <div class="head fx">
+      <span class="eye">What clients say</span>
+      <h2 class="disp d2">What's not to love?</h2>
+    </div>
+    <div class="quotes fx">
+      <div class="quote"><p>"They handled the hoardings and the Insta in the same call. That alone saved us a month."</p><footer>Founder, ShirtUp</footer></div>
+      <div class="quote"><p>"Our admission enquiries doubled and we finally look like a school parents trust online."</p><footer>Principal, R. Chandak School</footer></div>
+      <div class="quote"><p>"Fast, responsive, and they actually explain what they're doing and why."</p><footer>Sneha Taori</footer></div>
+    </div>
+  </section>
+
+  <section class="cta on-red">
+    <div class="wrap">
+      <h2 class="disp d1 fx">Let's go viral.</h2>
+      <div class="cta-links fx">
+        <a class="btn btn--yellow" href="#contact"><span>Start a project</span></a>
+        <a class="cta-dir" href="tel:+918767565342">+91 87675 65342</a>
+        <a class="cta-dir" href="mailto:info@backkbenchers.in">info@backkbenchers.in</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= SERVICES ================= -->
+<div data-page="services">
+  <section class="wrap hero" style="padding-bottom:24px">
+    <div class="hero-grid">
+      <div>
+        <h1 class="disp d1"><span class="rv"><span>We help brands</span></span><span class="rv"><span><span class="wob" style="color:var(--red)">grow</span> — properly.</span></span></h1>
+        <div class="hero-actions fx"><a class="btn" href="#contact"><span>Start a project</span></a></div>
+      </div>
+      <div class="hero-side fx"><p class="lede">Motion graphic reels, graphic posts, strategy and execution. Seventeen services, three teams, one number to call.</p></div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="filter" id="svcFilter">
+    <button class="on" data-f="all">All 17</button>
+    <button data-f="digital">Digital</button>
+    <button data-f="outdoor">Traditional</button>
+    <button data-f="creative">Design &amp; production</button>
+  </div></div>
+
+  <section class="sec wrap" data-group="digital" style="padding-top:24px">
+    <div class="head fx">
+      <span class="eye">Team 01</span>
+      <h2 class="disp d2">Digital marketing</h2>
+    </div>
+    <div class="cells fx">
+      <div class="cell flag">
+        <span class="sticker badge">Most booked 🔥</span>
+        <h3 class="disp d3">Social media management</h3>
+        <p>10 to 12 channels run end to end. Daily stories, daily posts, community replies, and the ad spend behind all of it.</p>
+      </div>
+      <div class="cell"><h3 class="disp d3">SEO</h3><p>We fix what's quietly costing you traffic, then build the pages that earn it back.</p></div>
+      <div class="cell"><h3 class="disp d3">Performance marketing</h3><p>Paid campaigns built around a cost-per-result you agree to before we spend a rupee.</p></div>
+      <div class="cell"><h3 class="disp d3">Website marketing</h3><p>Static to dynamic. Design, build, and manage — with hosting sorted for you.</p></div>
+      <div class="cell"><h3 class="disp d3">Marketing &amp; content strategy</h3><p>One plan across every channel, so the hoarding and the reel aren't fighting each other.</p></div>
+      <div class="cell"><h3 class="disp d3">Market &amp; consumer research</h3><p>Who's actually buying, what they respond to, where the competition is weak.</p></div>
+    </div>
+  </section>
+
+  <section class="sec on-ink" data-group="outdoor">
+    <div class="wrap">
+      <div class="head fx"><span class="eye">Team 02</span><h2 class="disp d2">Traditional marketing</h2></div>
+      <div class="rows fx">
+        <div class="row"><h3 class="disp d3">Hoardings &amp; billboards</h3><p>Prime sites across most of Nagpur, plus society-level placements.</p></div>
+        <div class="row"><h3 class="disp d3">Metro pillar &amp; transit</h3><p>The highest-frequency inventory in the city, booked and managed for you.</p></div>
+        <div class="row"><h3 class="disp d3">Newspaper ads</h3><p>Placed in the editions your buyers still read, at rates we negotiate.</p></div>
+        <div class="row"><h3 class="disp d3">TV &amp; radio ads</h3><p>Scripted, produced and slotted — without you touching an edit suite.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap" data-group="creative">
+    <div class="head fx"><span class="eye">Team 03</span><h2 class="disp d2">Design &amp; production</h2></div>
+    <div class="cells fx">
+      <div class="cell"><h3 class="disp d3">Photography &amp; videography</h3><p>Product, campaign, event — shot in-house.</p></div>
+      <div class="cell"><h3 class="disp d3">Editing, photo &amp; video</h3><p>Colour, cut and finish that matches the brand.</p></div>
+      <div class="cell"><h3 class="disp d3">Social media creatives</h3><p>Feed, story and reel assets built for the platform.</p></div>
+      <div class="cell"><h3 class="disp d3">Animation</h3><p>10 motion graphic reels, delivered in days, not weeks.</p></div>
+      <div class="cell"><h3 class="disp d3">Banners &amp; flyers</h3><p>On-ground collateral that doesn't look templated.</p></div>
+      <div class="cell"><h3 class="disp d3">Print design</h3><p>Press-ready files, correct the first time.</p></div>
+      <div class="cell"><h3 class="disp d3">Branding kit</h3><p>Logo, palette, type and the rules that keep it consistent.</p></div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="head fx"><span class="eye">Working together</span><h2 class="disp d2">Two ways to hire us.</h2></div>
+    <div class="cells fx" style="grid-template-columns:1fr 1fr">
+      <div class="cell" style="min-height:auto"><h3 class="disp d3">Monthly retainer</h3><p>Everything running continuously, all three teams, priority turnaround.</p><a class="btn" href="#contact"><span>Start a retainer</span></a></div>
+      <div class="cell flag" style="min-height:auto"><span class="sticker badge">Most common</span><h3 class="disp d3">One-off project</h3><p>A defined launch or build. Clear scope, fixed cost, full production.</p><a class="btn btn--yellow" href="#contact"><span>Scope a project</span></a></div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="head fx"><span class="eye">FAQs</span><h2 class="disp d2">Before you call.</h2></div>
+    <div class="faq fx" id="faq">
+      <div class="q"><button>Do you handle both digital and outdoor?<span class="plus"></span></button><div class="a"><p>Yes — one team plans the pillar and the ad campaign together, so the message matches everywhere.</p></div></div>
+      <div class="q"><button>Do I have to buy a full package?<span class="plus"></span></button><div class="a"><p>No. Most clients start with one service and add the rest once it's paying off.</p></div></div>
+      <div class="q"><button>How fast can you start?<span class="plus"></span></button><div class="a"><p>Digital usually begins within a week. Outdoor depends on what's available.</p></div></div>
+      <div class="q"><button>What does it cost?<span class="plus"></span></button><div class="a"><p>Depends on scope. Tell us the goal and budget and we'll tell you what's achievable.</p></div></div>
+    </div>
+  </section>
+
+  <section class="cta on-yellow">
+    <div class="wrap"><h2 class="disp d1 fx">Pick a service. Or pick all of them.</h2>
+    <div class="cta-links fx"><a class="btn" href="#contact"><span>Start a project</span></a><a class="cta-dir" href="tel:+917770019261">+91 77700 19261</a></div></div>
+  </section>
+</div>
+
+<!-- ================= WORK ================= -->
+<div data-page="work">
+  <section class="wrap hero" style="padding-bottom:24px">
+    <div class="hero-grid">
+      <div>
+        <h1 class="disp d1"><span class="rv"><span>The work</span></span><span class="rv"><span>is the <span class="wob" style="color:var(--red)">pitch</span>.</span></span></h1>
+        <div class="hero-actions fx"><a class="btn" href="#contact"><span>Start a project</span></a></div>
+      </div>
+      <div class="hero-side fx"><p class="lede">Campaigns run across Nagpur — screens, pillars, print. Here's what happened after.</p></div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="filter" id="workFilter">
+    <button class="on" data-w="all">All</button>
+    <button data-w="digital">Digital</button>
+    <button data-w="outdoor">Outdoor</button>
+    <button data-w="brand">Branding</button>
+    <button data-w="video">Video</button>
+  </div></div>
+
+  <section class="sec wrap" style="padding-top:24px">
+    <div class="work-grid fx" id="workGrid">
+      <a class="poster c-red" data-cat="digital" href="#work"><span class="p-idx">01</span><span class="p-cat">ShirtUp · Apparel D2C</span><div class="p-name disp">Sold the shirt, not the discount.</div><div class="p-foot"><span class="p-res">3.1× ROAS · 90 days</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+      <a class="poster c-yellow" data-cat="outdoor" href="#work"><span class="p-idx">02</span><span class="p-cat">Shree Mohini · Jewellery</span><div class="p-name disp">42 pillars, one week.</div><div class="p-foot"><span class="p-res">Metro transit takeover</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+      <a class="poster c-peach" data-cat="digital" href="#work"><span class="p-idx">03</span><span class="p-cat">R. Chandak School</span><div class="p-name disp">Admissions, doubled.</div><div class="p-foot"><span class="p-res">2.4× enquiries</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+      <a class="poster" data-cat="video" href="#work"><span class="p-idx">04</span><span class="p-cat">Sneha Taori · Personal brand</span><div class="p-name disp">Zero to 68,000.</div><div class="p-foot"><span class="p-res">8 months, weekly video</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+      <a class="poster c-yellow" data-cat="brand" href="#work"><span class="p-idx">05</span><span class="p-cat">Mission Ums Fikr · Non-profit</span><div class="p-name disp">A cause that looks funded.</div><div class="p-foot"><span class="p-res">Identity rebuild + toolkit</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+      <a class="poster c-peach" data-cat="brand" href="#work"><span class="p-idx">06</span><span class="p-cat">Imprimere · Print, B2B</span><div class="p-name disp">A printer that prints well.</div><div class="p-foot"><span class="p-res">Brand kit + website</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+      <a class="poster c-red" data-cat="video" href="#work"><span class="p-idx">07</span><span class="p-cat">Restaurant client</span><div class="p-name disp">18 reels, 1.2M views.</div><div class="p-foot"><span class="p-res">Organic only</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+      <a class="poster" data-cat="outdoor" href="#work"><span class="p-idx">08</span><span class="p-cat">Real-estate client</span><div class="p-name disp">Six formats, one weekend.</div><div class="p-foot"><span class="p-res">Hoardings, pillars, print, radio, social</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+      <a class="poster p-cta" href="#contact"><span class="p-cat">Your brand</span><div class="p-name disp">This slot's open.</div><div class="p-foot"><span class="p-res">Start a project</span><span class="p-arrow"><svg width="16" height="16"><use href="#arrow"/></svg></span></div></a>
+    </div>
+  </section>
+
+  <section class="sec on-ink">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><b>150+</b><i>Campaigns run</i></div>
+        <div class="stat"><b>60+</b><i>Hoardings placed</i></div>
+        <div class="stat"><b>40+</b><i>Brands on the books</i></div>
+        <div class="stat"><b>4.9</b><i>Average rating</i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta on-red">
+    <div class="wrap"><h2 class="disp d1 fx">Your brand could be next.</h2>
+    <div class="cta-links fx"><a class="btn btn--yellow" href="#contact"><span>Start a project</span></a><a class="btn btn--ghost" href="#services"><span>See services</span></a></div></div>
+  </section>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<div data-page="about">
+  <section class="wrap hero" style="padding-bottom:24px">
+    <div class="hero-grid">
+      <div>
+        <h1 class="disp d1"><span class="rv"><span>We sat at the</span></span><span class="rv"><span>back. Turns out</span></span><span class="rv"><span>we were <span class="wob" style="color:var(--red)">watching</span>.</span></span></h1>
+        <div class="hero-actions fx"><a class="btn" href="#work"><span>See the work</span></a></div>
+      </div>
+      <div class="hero-side fx"><p class="lede">An AI-powered marketing firm in Nagpur. Digital, outdoor, print and production — run by one loud, slightly chaotic team.</p></div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="head fx"><span class="eye">Our story</span><h2 class="disp d2">Why one team does all of it.</h2></div>
+    <div class="fx" style="max-width:62ch">
+      <p style="margin-bottom:1.1em;font-weight:500">Backkbenchers started with a simple problem: brands were paying one agency for Instagram, another for hoardings, and a third to shoot the photos both of them needed. Nobody was talking to anybody.</p>
+      <p class="disp d3" style="margin-bottom:1.1em;color:var(--red)">One team. One strategy. One number to call.</p>
+      <p style="font-weight:500">Today we run socials, performance, SEO and websites alongside metro pillars, billboards and broadcast — and we shoot, edit and animate everything ourselves. Whatever shape the brief arrives in, you get clarity back.</p>
+    </div>
+  </section>
+
+  <section class="sec on-yellow">
+    <div class="wrap">
+      <div class="head fx"><span class="eye">Principles</span><h2 class="disp d2">What we don't budge on.</h2></div>
+      <div class="rows fx">
+        <div class="row"><h3 class="disp d3">Say the number</h3><p>If a channel can't be measured, we say so before you buy it.</p></div>
+        <div class="row"><h3 class="disp d3">In-house or not at all</h3><p>Your shoot doesn't go to a freelancer we've never met.</p></div>
+        <div class="row"><h3 class="disp d3">Plan the whole board</h3><p>Digital and outdoor planned together, or the same money gets spent twice.</p></div>
+        <div class="row"><h3 class="disp d3">Plain language, always</h3><p>No jargon in the report — you should know exactly what you paid for.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="head fx"><span class="eye">The team</span><h2 class="disp d2">The people who actually do the work.</h2></div>
+    <div class="team fx">
+      <div class="member"><div class="face"><span class="init">AK</span></div><div class="info"><h3 class="disp d3">Name here</h3><span>Founder &amp; strategy</span></div></div>
+      <div class="member"><div class="face"><span class="init">RS</span></div><div class="info"><h3 class="disp d3">Name here</h3><span>Creative director</span></div></div>
+      <div class="member"><div class="face"><span class="init">PM</span></div><div class="info"><h3 class="disp d3">Name here</h3><span>Social media lead</span></div></div>
+      <div class="member"><div class="face"><span class="init">TN</span></div><div class="info"><h3 class="disp d3">Name here</h3><span>Performance marketing</span></div></div>
+      <div class="member"><div class="face"><span class="init">SD</span></div><div class="info"><h3 class="disp d3">Name here</h3><span>Photography &amp; video</span></div></div>
+      <div class="member open-role"><div><h3 class="disp d3">We are hiring 👀</h3><p style="opacity:.65;margin-top:8px;font-size:.92rem;font-weight:500">Full stack dev? Hands-on with Claude AI? info@backkbenchers.in</p></div></div>
+    </div>
+  </section>
+
+  <section class="cta on-red">
+    <div class="wrap"><h2 class="disp d1 fx">Come sit at the back with us.</h2>
+    <div class="cta-links fx"><a class="btn btn--yellow" href="#contact"><span>Start a project</span></a><a class="btn btn--ghost" href="#work"><span>See the work</span></a></div></div>
+  </section>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<div data-page="contact">
+  <section class="wrap hero" style="padding-bottom:24px">
+    <div class="hero-grid">
+      <div>
+        <h1 class="disp d1"><span class="rv"><span>Grab your fame.</span></span></h1>
+        <div class="hero-actions fx">
+          <a class="btn" href="tel:+917770019261"><span>Call the studio</span></a>
+          <a class="btn btn--ghost" href="mailto:info@backkbenchers.in"><span>Email us</span></a>
+        </div>
+      </div>
+      <div class="hero-side fx"><p class="lede">Tell us what you're launching. We'll come back with a scope, timeline and an honest view on budget.</p></div>
+    </div>
+  </section>
+
+  <section class="sec wrap" style="padding-top:24px">
+    <div class="audit">
+      <div class="fx">
+        <div class="head"><span class="eye">Send a brief</span></div>
+        <form id="contactForm">
+          <div class="field"><label for="c1">Your name</label><input id="c1" required></div>
+          <div class="field"><label for="c2">Business or brand</label><input id="c2" required></div>
+          <div class="field"><label for="c3">Email</label><input id="c3" type="email" required></div>
+          <div class="field"><label for="c4">Mobile number</label><input id="c4" type="tel" required></div>
+          <div class="field"><label for="c5">Tell us about the project</label><textarea class="ta" id="c5" required></textarea></div>
+          <button class="btn" type="submit"><span>Send the brief</span></button>
+          <p class="form-note">Or WhatsApp us on +91 77700 19261 if that's faster.</p>
+        </form>
+        <div class="sent" id="contactSent"><h3 class="disp d3">Brief received 🎉</h3><p style="margin-top:10px;opacity:.75;font-weight:500">We'll reply within two working days.</p></div>
+      </div>
+      <div class="fx">
+        <div class="head"><span class="eye">Reach us direct</span></div>
+        <div class="rows">
+          <div class="row"><h3 class="disp d3">Call</h3><p><a href="tel:+917770019261">+91 77700 19261</a> — Mon to Sat, 10am to 7pm</p></div>
+          <div class="row"><h3 class="disp d3">Alternate</h3><p><a href="tel:+918767565342">+91 87675 65342</a> — outdoor &amp; print enquiries</p></div>
+          <div class="row"><h3 class="disp d3">Email</h3><p><a href="mailto:info@backkbenchers.in">info@backkbenchers.in</a></p></div>
+          <div class="row"><h3 class="disp d3">Studio</h3><p>Nagpur, Maharashtra</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta on-yellow">
+    <div class="wrap"><h2 class="disp d1 fx">Let's go viral.</h2>
+    <div class="cta-links fx"><a class="btn" href="tel:+917770019261"><span>+91 77700 19261</span></a><a class="cta-dir" href="mailto:info@backkbenchers.in">info@backkbenchers.in</a></div></div>
+  </section>
+</div>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img src="logo.png" alt="BackkBenchers" style="width:184px;height:auto;display:block">
+        <p style="opacity:.65;font-size:.9rem;margin-top:14px;max-width:26ch;font-weight:500">AI-powered marketing firm, Nagpur. Digital, outdoor and production under one roof.</p>
+      </div>
+      <div><h4>Pages</h4><ul>
+        <li><a href="#home">Home</a></li><li><a href="#work">Work</a></li><li><a href="#services">Services</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li>
+      </ul></div>
+      <div><h4>Services</h4><ul>
+        <li><a href="#services">Social media</a></li><li><a href="#services">Hoardings</a></li><li><a href="#services">SEO</a></li><li><a href="#services">Photography</a></li><li><a href="#services">Branding kit</a></li>
+      </ul></div>
+      <div><h4>Contact</h4><ul>
+        <li><a href="tel:+917770019261">+91 77700 19261</a></li>
+        <li><a href="mailto:info@backkbenchers.in">info@backkbenchers.in</a></li>
+      </ul>
+      <h4 style="margin-top:20px">Get updates</h4>
+      <form class="sub" onsubmit="event.preventDefault();this.querySelector('input').value='';this.querySelector('button').textContent='Done'">
+        <input type="email" placeholder="Email address" required aria-label="Email address"><button type="submit">Sign up</button>
+      </form>
+      </div>
+    </div>
+    <div class="foot-bot"><span>© 2026 BackkBenchers</span><span>Nagpur, Maharashtra, India</span></div>
+  </div>
+</footer>
+
+<script>
+const pages = document.querySelectorAll('[data-page]');
+function go(name){
+  if(!document.querySelector('[data-page="'+name+'"]')) name='home';
+  pages.forEach(p=>p.classList.toggle('live', p.dataset.page===name));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('on', a.getAttribute('href')==='#'+name));
+  document.getElementById('mob').classList.remove('open');
+  window.scrollTo({top:0,behavior:'instant'});
+  observeAll();
+}
+function route(){
+  const h=(location.hash||'#home').slice(1);
+  if(h.startsWith('home-')){ go('home'); const t=document.getElementById(h); if(t) setTimeout(()=>t.scrollIntoView({behavior:'smooth'}),60); return; }
+  go(h);
+}
+window.addEventListener('hashchange',route);
+
+let io;
+function observeAll(){
+  if(io) io.disconnect();
+  io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.live .rv, .live .fx').forEach((el,i)=>{ el.style.transitionDelay=(i%6*60)+'ms'; io.observe(el); });
+}
+
+document.getElementById('burger').onclick=()=>document.getElementById('mob').classList.toggle('open');
+
+document.querySelectorAll('#faq .q button').forEach(b=>{
+  b.onclick=()=>{
+    const q=b.parentElement, open=q.classList.contains('open');
+    document.querySelectorAll('#faq .q').forEach(x=>{x.classList.remove('open');x.querySelector('.a').style.maxHeight=null;});
+    if(!open){ q.classList.add('open'); q.querySelector('.a').style.maxHeight=q.querySelector('.a').scrollHeight+'px'; }
+  };
+});
+
+document.querySelectorAll('#svcFilter button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('#svcFilter button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    const f=b.dataset.f;
+    document.querySelectorAll('[data-group]').forEach(g=>{ g.style.display=(f==='all'||g.dataset.group===f)?'':'none'; });
+  };
+});
+
+document.querySelectorAll('#workFilter button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('#workFilter button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    const w=b.dataset.w;
+    document.querySelectorAll('#workGrid .poster').forEach(p=>{ p.style.display=(w==='all'||p.dataset.cat===w)?'':'none'; });
+  };
+});
+
+const af=document.getElementById('auditForm');
+if(af) af.onsubmit=e=>{ e.preventDefault(); af.style.display='none'; document.getElementById('auditSent').classList.add('show'); };
+const cf=document.getElementById('contactForm');
+if(cf) cf.onsubmit=e=>{ e.preventDefault(); cf.style.display='none'; document.getElementById('contactSent').classList.add('show'); };
+
+route();
+</script>
+</body>
+</html>
